@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "342451195675",
+    "project_id": "agroriches-a6276",
+    "storage_bucket": "agroriches-a6276.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342451195675:android:4b5852aefb9a0edb9b0dbe",
+        "android_client_info": {
+          "package_name": "com.tiastgroup.agrorichesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342451195675-fhisnevce65odjvk6qb3uu64codjulth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tiastgroup.agrorichesapp",
+            "certificate_hash": "4feb60fdd7a0f8227d5107fd11d4db14491c71de"
+          }
+        },
+        {
+          "client_id": "342451195675-pc4ra7mamrdafveekovqgf0fv5kaipjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tiastgroup.agrorichesapp",
+            "certificate_hash": "20a767418834a74111dbeb00bebce83f298d6e45"
+          }
+        },
+        {
+          "client_id": "342451195675-uifc9iajh3dhlvoec83tdq9fc3lpti5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcahmmuvPytxvAQc90ETq_aVfLAbaRj0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342451195675-758v4tiooistq65lk8i1cg0kaf4rel9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

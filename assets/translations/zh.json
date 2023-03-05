@@ -1,0 +1,312 @@
+
+{
+    "home": "家",
+
+    "tv": "电视",
+
+    "categories" : "分类",
+
+    "profile": "简介",
+    "newsletter":"书籍",
+    "no newsletter found": "找不到新闻信", 
+    
+
+
+
+    "WELCOME BACK!" : "欢迎来到",
+
+    "sign in to continue": "登录以继续",
+
+    "skip": "转到另一页",
+
+    "done": "完毕",
+
+
+
+    "intro-title1" : "探索最新消息",
+
+    "intro-title2" : "首先得到通知",
+
+    "intro-title3" : "保存文章",
+
+    "intro-description1" : "在几分钟内搜索世界上发生的最新新闻和事件...",
+
+    "intro-description2" : "订阅我们所有文章的通知并您的朋友分享...",
+
+    "intro-description3" : "标记, 点赞和评论您最喜欢的文章并在社交媒体上分享...",
+
+    "get started" : "开始",
+
+    "don't have social accounts?" : "没有社交账号?",
+
+    "continue with email >>" : "继续电子邮件 >>",
+
+
+
+    "sign up": "注册",
+
+    "sign in": "登录",
+
+    "follow the simple steps": "按照简单的步骤",
+
+    "name": "Name",
+
+    "already have an account?": "已经有账户?",
+
+    "forgot password?": "忘记的密码?",
+
+    "reset your password": "重置密码",
+
+    "submit": "提交",
+
+    "sign in successful!" : "登录成功!",
+
+    "sign up successful!": "注册成功!",
+
+    "don't have an account?" : "没有账户?",
+
+
+
+
+
+
+
+    "search news" : "搜索新闻",
+
+    "popular news" : "热点新闻",
+
+    "recent news" : "最近的新闻",
+
+    "explore": "探索",
+
+    "featured": "置顶",
+
+    "view all" : "查看全部",
+
+
+
+    "video articles" : "多媒体文章",
+
+    "most recent": "最近的",
+
+    "most popular": "最受欢迎",
+
+    "no categories found": "未找到类别", 
+
+
+
+    
+
+
+
+
+
+
+
+    "people like this" : "人们喜欢这样",
+
+    "you might also like" : "你可能还喜欢",
+
+    "no articles found" : "没有找到文章",
+
+
+
+
+
+    
+
+    "no internet" : "没有网络连接!",
+
+    "no comments found" : "没有找到评论",
+
+    "be the first to comment" : "第一个发表评论",
+
+
+
+
+
+    "recent searchs" : "最近搜索",
+
+    "search-description" :  "您还没有搜索任何项目. 现在试试 - 我们会帮助你!",
+
+    "we have found" : "我们发现",
+
+    "try again" : "再试一次!",
+
+
+
+
+
+
+
+
+
+    "bookmarks" : "收藏",
+
+    "sign in first" : "先登录",
+
+    "sign in to save your favourite articles here" : "登录以在此处保存您喜欢的文章",
+
+    "save your favourite articles here" : "在这里保存您喜欢的文章",
+
+
+
+
+
+
+
+
+
+    "check your internet connection!" : "检查您的互联网连接!",
+
+    "something is wrong. please try again." : "未知问题。请再试一遍.",
+
+    "error fb login" : "Facebook 登录错误！请尝试使用谷歌",
+
+
+
+
+
+    
+
+    "cancel" : "取消",
+
+    "no sign in title" : "请先登录以使用此功能",
+
+    "no sign in subtitle" : "您还没有登录。请登录以解锁此功能",
+
+
+
+    
+
+    
+
+    "comments" : "评论",
+
+    "write a comment" : "写个评论", 
+
+
+
+
+
+    
+
+    "no content" : "没有找到目录",
+
+    "flag this comment" : "标记此评论",
+
+    "unflag this comment" : "取消标记此评论",
+
+    "report" : "报告",
+
+    "delete" : "删除",
+
+    "report-info" : "您的报告已成功发送",
+
+    "report-info1" : "感谢您的报告。我们将在 小时内回复",
+
+    "report-guest" : "需要登录!",
+
+    "report-guest1" : "您必须登录才能报告任何评论",
+
+    "comment flagged" : "此评论已被标记!",
+
+
+
+
+
+    "notifications" : "通知",
+
+    "notification details" : "通知详情",
+
+
+
+
+
+    
+
+    "general settings" : "通用设置",
+
+    "dark mode" : "深色模式",
+
+    "login" : "登录",
+
+    "get notifications" : "收到通知",
+
+    "contact us" : "联系我们",
+
+    "rate this app" : "为这个应用软件评分",
+
+    "licence" : "执照",
+
+    "privacy policy" : "隐私政策",
+
+    "about us" : "关于我们",
+
+    "logout" : "登出",
+
+    "edit profile" : "编辑个人资料",
+
+    "update profile" : "更新配置文件",
+
+    "updated successfully" : "更新成功",
+
+    "enter new name" : "输入新名称",
+
+
+
+    "logout title" : "您真的要退出/注销这个应用程序吗?",
+
+    "yes" : "是的",
+
+    "no" : "不",
+
+
+
+    "language" : "语言",
+
+    "select language" : "选择语言",
+
+
+
+    "buy now" : "购买此应用",
+
+    "buy now subtitle" : "在这里购买完整的源代码",
+
+
+
+    
+
+    "facebook page" : "Facebook页面",
+
+    "youtube channel" : "YouTube频道",
+
+    "twitter": "Twitter",
+
+    "views": "观看次数",
+
+
+
+
+
+    "clear-all" : "全部清除",
+
+    "clear-all-notification-dialog": "您想清除所有通知数据吗?",
+
+    "no-notification-title": "没有找到通知!",
+
+    "no-notification-description" : "您还没有收到任何通知。确保您已从设置中打开通知.",
+
+    "security": "安全",
+
+    "delete-user-data": "删除我的数据和帐户",
+
+    "account-delete-title": "您真的要删除您的数据吗?",
+
+    "account-delete-subtitle": "您的个人资料数据、收藏等帐户信息将从应用程序数据库中删除，您必须在应用程序中重新注册才能继续.",
+
+    "account-delete-confirm": "是的，删除我的帐户"
+
+
+
+}

@@ -1,0 +1,311 @@
+{
+
+    "home": "Accueil",
+    
+    "tv": "télé",
+    
+    "categories" : "Catégories",
+    
+    "profile": "Profil",
+    "newsletter":"Bulletin",
+    "Agroriches Tv":"Agroriches télé",
+    
+    
+    
+    "WELCOME BACK!" : "Bienvenue ",
+    
+    "sign in to continue": "s'identifier pour continuer",
+    
+    "skip": "passer à",
+    
+    "done": "terminé",
+    
+    
+    
+    "intro-title1" : "Explorer les dernières actualités",
+    "intro-title2" : "recevez des notifications",
+    
+    "intro-title3" : "Sauvegarder les articles",
+    
+    "intro-description1" : "Explorez les actualités et les événements les plus récents qui se produisent dans le monde en quelques minutes...",
+    "intro-description2" : "Souscrivez et soyez informés de tous nos articles et partagez-les avec vos amis...",
+    
+    "intro-description3" : "Sélectionnez, aimez et commentez vos articles préférés et partagez-les sur les médias sociaux...",
+    
+    "get started" : "Démarrez",
+    
+    "don't have social accounts?" : "Vous n'avez pas de comptes sociaux?",
+    
+    "continue with email >>" : "Continuer avec l'email  >>",
+    
+    
+    
+    "sign up": "s'inscrire",
+    
+    "sign in": "Connectez vous",
+    
+    "follow the simple steps": "Suivez les étapes simples",
+    
+    "name": "Nom",
+    
+    "already have an account?": "Vous disposez déjà d'un compte?",
+    
+    "forgot password?": "Mot de passe oublié?",
+    
+    "reset your password": "Réinitialiser votre mot de passe",
+    
+    "submit": "Soumettre",
+    
+    "sign in successful!" : "Connexion réussie !",
+    
+    "sign up successful!": "Inscriptions réussies!",
+    
+    "don't have an account?" : "Vous n'avez pas de compte?",
+    
+    "no newsletter found": "aucun bulletin d'information trouvé", 
+    
+    
+    
+    
+    
+    "search news" : "Recherche d'actualités",
+    
+    "popular news" : "Actualités populaires",
+    
+    "recent news" : "Actualités récentes",
+    
+    "explore": "Explorez",
+    
+    "featured": "présenté",
+    "view all" : "voir tout",
+    
+    
+    
+    "video articles" : "Articles de vidéo",
+    
+    "most recent": "Les plus récents",
+    
+    "most popular": "Le plus populaire",
+    
+    "no categories found": "Aucune catégorie trouvée", 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    "people like this" : "Des personnes comme ça",
+    
+    "you might also like" : "Vous pourriez aussi aimer",
+    "no articles found" : "Aucun article n'a été trouvé",
+    
+    
+    
+    
+    
+    
+    "no internet" : "Pas de connexion internet !",
+    
+    
+    "no comments found" : "Aucun commentaire trouvé",
+    "be the first to comment" : "Soyez le premier à commenter",
+    
+    
+    
+    
+    
+    "recent searchs" : "Les recherches récentes",
+    
+    "search-description" : "Vous n'avez pas encore recherché d'articles. Essayez maintenant - nous allons vous aider !",
+    
+    "we have found" : " Nous avons trouvé ",
+    
+    "try again" : "Essayez à nouveau !",
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    "bookmarks" : "Marque-pages",
+    
+    "sign in first" : "Connectez-vous d'abord",
+    
+    "sign in to save your favourite articles here" : "Connectez-vous pour enregistrer vos articles préférés ici",
+    
+    "save your favourite articles here" : "Sauvegardez vos articles préférés ici",
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    "check your internet connection!" : "Vérifiez votre connexion internet !",
+    
+    "something is wrong. please try again." : "Il y a un problème. Veuillez réessayer.",
+    
+    "error fb login" : "Erreur avec la connexion facebook ! Veuillez essayer avec google",
+    
+    
+    
+    
+    
+    
+    
+    "cancel" : "Annuler",
+    
+    "no sign in title" : "Connectez-vous d'abord pour accéder à cette fonctionnalité",
+    
+    "no sign in subtitle" : "Vous ne vous êtes pas encore connecté. Veuillez vous connecter pour déverrouiller cette fonction",
+    
+    
+    
+    
+    
+    
+    
+    
+    "comments" : "Commentaires",
+    
+    "write a comment" : "Écrire un commentaire", 
+    
+    
+    
+    
+    
+    
+    
+    "no content" : "Aucun contenu trouvé",
+    
+    "flag this comment" : "Marquer ce commentaire",
+    
+    "unflag this comment" : "Annuler ce commentaire",
+    
+    "report" :"Rapport",
+    
+    "delete" : "Supprimer",
+    
+    "report-info" : "Votre rapport a été envoyé avec succès aux admins",
+    
+    "report-info1" : "Merci pour votre rapport. Nous vous répondrons dans les 24 heures",
+    
+    "report-guest" : "L'identification est requise !",
+    
+    "report-guest1" : "Vous devez vous connecter pour signaler tout commentaire",
+    
+    "comment flagged" : "Ce commentaire a été signalé !",
+    
+    
+    
+    
+    
+    "notifications" : "Notifications",
+    
+    "notification details" : "Détails de Notifications",
+    
+    
+    
+    
+    
+    
+    
+    "general settings" : "Paramètres généraux",
+    
+    "dark mode" : "Mode sombre",
+    
+    "login" : "Connexion",
+    
+    "get notifications" : "Obtenir des notifications",
+    
+    "contact us" : "Contactez-nous",
+    
+    "rate this app" : "Évaluez cette application",
+    
+    "licence" : "Licence",
+    
+    "privacy policy" : "Politique de confidentialité",
+    
+    "about us" : "À propos de nous",
+    
+    "logout" : "Déconnexion",
+    
+    "edit profile" : "Modifier le profil",
+    
+    "update profile" : "Mettre à jour le profil",
+    
+    "updated successfully" : "Mis à jour avec succès",
+    
+    "enter new name" : "Entrez un nouveau nom",
+    
+    
+    
+    "logout title" : "Voulez-vous vraiment vous déconnecter de l'application ?",
+    
+    "yes" : "Oui",
+    
+    "no" : "Non",
+    
+    
+    
+    "language" : "Langue",
+    
+    "select language" : "Sélectionnez la langue",
+    
+    
+    
+    "buy now" : "Acheter cette application",
+    
+    "buy now subtitle" : "Achetez le code source complet ici",
+    
+    
+    
+    
+    
+    "facebook page" : "Page Facebook",
+    
+    "youtube channel" : "Chaîne Youtube",
+    
+    "twitter": "Twitter",
+    
+    "views": "Vues",
+    
+    
+    
+    
+    
+    "clear-all" : "Effacer tout",
+    
+    "clear-all-notification-dialog": "Voulez-vous effacer toutes les données de notification ?",
+    
+    "no-notification-title": "Aucune notification trouvée !",
+    
+    "no-notification-description" : "Vous n'avez pas encore reçu de notifications. Vérifiez que vous avez activé les notifications dans les paramètres.",
+    
+    "sécurité" : "Sécurité",
+    
+    "delete-user-data": "Supprimer mes données et mon compte",
+    
+    "account-delete-title": "Voulez-vous vraiment supprimer vos données ?",
+    
+    "account-delete-subtitle": "Les informations de votre compte, comme les données de votre profil, vos signets, etc., seront effacées de la base de données de l'application et vous devrez vous réinscrire dans l'application pour continuer.",
+    
+    "account-delete-confirm": "Oui, supprimer mon compte"
+    
+    
+    
+    }
