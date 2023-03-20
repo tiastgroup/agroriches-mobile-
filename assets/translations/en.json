@@ -15,9 +15,9 @@
     "intro-title1" : "Explore Latest News",
     "intro-title2" : "Get Notified First",
     "intro-title3" : "Save Articles",
-    "intro-description1" : "Explore lattest news and events happening in the world in minutes...",
+    "intro-description1" : "Explore latest news and events happening in the world in minutes...",
     "intro-description2" : "Subscribe and get notified to all of our articles & share with your friends...",
-    "intro-description3" : "Bookmark, like & comment on your favourite articles and share on social media...",
+    "intro-description3" : "Bookmark, like & comment on your favorite articles and share on social media...",
     "get started" : "Get Started",
     "don't have social accounts?" : "Don't have social accounts?",
     "continue with email >>" : "Continue with Email >>",
@@ -63,7 +63,7 @@
     "be the first to comment" : "Be the first to comment",
 
 
-    "recent searchs" : "Recent Searchs",
+    "recent searches" : "Recent Searches",
     "search-description" :  "You haven't search for any items yet.\n Try now - we will help you!",
     "we have found" : "We have found",
     "try again" : "Try again!",
@@ -73,8 +73,8 @@
 
     "bookmarks" : "Bookmarks",
     "sign in first" : "Sign In First",
-    "sign in to save your favourite articles here" : "Sign in to save your favourite articles here",
-    "save your favourite articles here" : "Save your favourite articles here",
+    "sign in to save your favorite articles here" : "Sign in to save your favorite articles here",
+    "save your favorite articles here" : "Save your favorite articles here",
 
 
 
@@ -101,8 +101,8 @@
     "unflag this comment" : "Unflag this comment",
     "report" : "Report",
     "delete" : "Delete",
-    "report-info" : "Your report has been sent succesfully to the admins",
-    "report-info1" : "Thanks for your report. We will reponse within 24 hours.",
+    "report-info" : "Your report has been sent successfully to the admins",
+    "report-info1" : "Thanks for your report. We will respond within 24 hours.",
     "report-guest" : "Sign In is Required!",
     "report-guest1" : "You have to sign in to report about any comments",
     "comment flagged" : "This comment has been flagged!",
@@ -119,7 +119,7 @@
     "get notifications" : "Get Notifications",
     "contact us" : "Contact Us",
     "rate this app" : "Rate this app",
-    "licence" : "Licence",
+    "license" : "License",
     "privacy policy" : "Privacy Policy",
     "about us" : "About Us",
     "logout" : "Logout",
