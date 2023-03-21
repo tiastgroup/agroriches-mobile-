@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/newsletter.dart';
 
 class NewsletterBloc extends ChangeNotifier {
-
   DocumentSnapshot? _lastVisible;
   DocumentSnapshot? get lastVisible => _lastVisible;
 
@@ -14,21 +13,16 @@ class NewsletterBloc extends ChangeNotifier {
   List<NewsletterModel> _data = [];
   List<NewsletterModel> get data => _data;
 
-
   List<DocumentSnapshot> _snap = [];
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
 
   bool? _hasData;
   bool? get hasData => _hasData;
 
-
-
-
   Future<Null> getData(mounted) async {
     _hasData = true;
     QuerySnapshot rawData;
-    
+
     if (_lastVisible == null)
       rawData = await firestore
           .collection('newsletter')
@@ -43,10 +37,6 @@ class NewsletterBloc extends ChangeNotifier {
           .limit(30)
           .get();
 
-
-
-
-
     if (rawData.docs.length > 0) {
       _lastVisible = rawData.docs[rawData.docs.length - 1];
       if (mounted) {
@@ -55,37 +45,25 @@ class NewsletterBloc extends ChangeNotifier {
         _data = _snap.map((e) => NewsletterModel.fromFirestore(e)).toList();
       }
     } else {
-
-      if(_lastVisible == null){
-
+      if (_lastVisible == null) {
         _isLoading = false;
         _hasData = false;
         print('no items');
-
-      }else{
+      } else {
         _isLoading = false;
         _hasData = true;
         print('no more items');
       }
-      
     }
 
     notifyListeners();
     return null;
   }
 
-
-  
-
-
-
   setLoading(bool isloading) {
     _isLoading = isloading;
     notifyListeners();
   }
-
-
-
 
   onRefresh(mounted) {
     _isLoading = true;
@@ -95,7 +73,4 @@ class NewsletterBloc extends ChangeNotifier {
     getData(mounted);
     notifyListeners();
   }
-
-
-
 }

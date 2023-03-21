@@ -64,8 +64,8 @@ class _SplashPageState extends State<SplashPage> {
                   child: Text(
                     'Powered by Tiastgroup',
                     style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black,
+                      fontSize: 14.0,
+                      color: Colors.grey,
                     ),
                   ),
                 ),

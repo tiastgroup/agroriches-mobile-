@@ -9,7 +9,6 @@ import 'package:news_app/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 
 class Tab0 extends StatefulWidget {
-
   Tab0({Key? key}) : super(key: key);
 
   @override
@@ -17,32 +16,27 @@ class Tab0 extends StatefulWidget {
 }
 
 class _Tab0State extends State<Tab0> {
-
-
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: ()async {
+      onRefresh: () async {
         context.read<FeaturedBloc>().onRefresh();
-          context.read<PopularBloc>().onRefresh();
-          context.read<RecentBloc>().onRefresh(mounted);
-        },
-          child: SingleChildScrollView(
-            key: PageStorageKey('key0'),
-              padding: EdgeInsets.all(0),
-              physics: AlwaysScrollableScrollPhysics(),
-              child: Column(
-              children: [
-                SearchBar(),
-                Featured(),
-                PopularArticles(),
-                RecentArticles()
-              ],
-            ),
-          ),
-        
-    
+        context.read<PopularBloc>().onRefresh();
+        context.read<RecentBloc>().onRefresh(mounted);
+      },
+      child: SingleChildScrollView(
+        key: PageStorageKey('key0'),
+        padding: EdgeInsets.all(0),
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            SearchBar(),
+            Featured(),
+            PopularArticles(),
+            RecentArticles()
+          ],
+        ),
+      ),
     );
-  
   }
 }
