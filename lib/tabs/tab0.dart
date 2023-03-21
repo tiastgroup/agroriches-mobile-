@@ -32,8 +32,8 @@ class _Tab0State extends State<Tab0> {
           children: [
             SearchBar(),
             Featured(),
+            RecentArticles(),
             PopularArticles(),
-            RecentArticles()
           ],
         ),
       ),
