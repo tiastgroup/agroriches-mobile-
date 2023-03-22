@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Config {
   final String appName = 'Agroriches';
-  final String splashIcon = 'assets/images/splash_new.gif';
+  final String splashIcon = 'assets/images/image.gif';
   final String supportEmail = 'support@agroriches.com';
   final String privacyPolicyUrl = 'https://agroriches.com';
   final String ourWebsiteUrl = 'https://agroriches.com';

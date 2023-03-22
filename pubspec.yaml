@@ -57,6 +57,7 @@ dependencies:
   google_mobile_ads: ^2.0.1
   flutter_tts: ^3.6.3
   percent_indicator: ^4.2.3
+  sliding_up_panel: ^2.0.0+1
   # audioplayers: ^0.18.1
   # facebook_audience_network: ^1.0.1
   flutter_icons:
