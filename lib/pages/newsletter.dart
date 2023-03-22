@@ -1,21 +1,16 @@
 // import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
-
 import 'package:news_app/blocs/newsletter_bloc.dart';
 import 'package:news_app/pages/pdf_view.dart';
-
 import 'package:news_app/utils/cached_image_with_dark.dart';
 import 'package:news_app/utils/empty.dart';
 import 'package:news_app/utils/loading_cards.dart';
-
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 
 import '../models/newsletter.dart';
 
@@ -139,52 +134,46 @@ class _ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  blurRadius: 10,
-                  offset: Offset(0, 3),
-                  color: Theme.of(context).shadowColor)
-            ]),
-        child: Card(
-          child: Stack(
-        
-            children: [
-              Hero(
-                tag: 'newsletter${d.timestamp}',
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: CustomCacheImageWithDarkFilterBottom(
-                      imageUrl: d.thumbnailUrl, radius: 5.0),
-                ),
-              ),
-            
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  margin: EdgeInsets.only(left: 15, bottom: 15, right: 10),
-                  child: Text(
-                    d.name!,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: -0.6),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                    color: Theme.of(context).shadowColor)
+              ]),
+          child: Card(
+            child: Stack(
+              children: [
+                Hero(
+                  tag: 'newsletter${d.timestamp}',
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: CustomCacheImageWithDarkFilterBottom(
+                        imageUrl: d.thumbnailUrl, radius: 5.0),
                   ),
                 ),
-              ),
-            ],
-        
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 15, bottom: 15, right: 10),
+                    child: Text(
+                      d.name!,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: -0.6),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-   
-        ), 
-    
-        
-      ), onTap:(){
- Get.to(() =>PdfView(d:d));
-              }
-    );
+        ),
+        onTap: () {
+          Get.to(() => PdfView(d: d));
+        });
   }
 }

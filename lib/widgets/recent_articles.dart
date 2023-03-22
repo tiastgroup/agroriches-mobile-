@@ -1,20 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/blocs/recent_articles_bloc.dart';
-import 'package:news_app/cards/card2.dart';
-import 'package:news_app/cards/card4.dart';
-import 'package:news_app/cards/card5.dart';
+import 'package:news_app/cards/card1.dart';
+import 'package:news_app/pages/more_articles.dart';
+import 'package:news_app/utils/loading_cards.dart';
+import 'package:news_app/utils/next_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-class RecentArticles extends StatefulWidget {
+class RecentArticles extends StatelessWidget {
   RecentArticles({Key? key}) : super(key: key);
 
-  @override
-  _RecentArticlesState createState() => _RecentArticlesState();
-}
-
-class _RecentArticlesState extends State<RecentArticles> {
   @override
   Widget build(BuildContext context) {
     final rb = context.watch<RecentBloc>();
@@ -22,12 +17,13 @@ class _RecentArticlesState extends State<RecentArticles> {
     return Column(
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.only(left: 15, top: 15, bottom: 10, right: 15),
+            padding:
+                const EdgeInsets.only(left: 15, top: 10, bottom: 5, right: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  height: 22,
+                  height: 23,
                   width: 4,
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
@@ -37,43 +33,44 @@ class _RecentArticlesState extends State<RecentArticles> {
                   width: 6,
                 ),
                 Text('recent news',
-                    style: TextStyle(
-                        fontSize: 18,
-                        letterSpacing: -0.6,
-                        wordSpacing: 1,
-                        fontWeight: FontWeight.bold)).tr(),
-                
+                        style: TextStyle(
+                            fontSize: 18,
+                            letterSpacing: -0.6,
+                            wordSpacing: 1,
+                            fontWeight: FontWeight.bold))
+                    .tr(),
+                Spacer(),
+                TextButton(
+                  child: Text(
+                    'view all',
+                    style: TextStyle(color: Theme.of(context).primaryColorDark),
+                  ).tr(),
+                  onPressed: () =>
+                      nextScreen(context, MoreArticles(title: 'recent news')),
+                )
               ],
             )),
-
-        ListView.separated(
-          padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: rb.data.length != 0 ? rb.data.length + 1 : 1,
-          separatorBuilder: (BuildContext context, int index) => SizedBox(height: 15,),
-          
-          shrinkWrap: true,
-          itemBuilder: (_, int index) {
-
-            if (index < rb.data.length) {
-              if(index %3 == 0 && index != 0) return Card5(d: rb.data[index], heroTag: 'recent$index');
-              if(index %5 == 0 && index != 0) return Card4(d: rb.data[index], heroTag: 'recent$index');
-              else return Card2(d: rb.data[index], heroTag: 'recent$index',);
-            }
-            return Opacity(
-                opacity: rb.isLoading ? 1.0 : 0.0,
-                child: Center(
-                  child: SizedBox(
-                      width: 32.0,
-                      height: 32.0,
-                      child: new CupertinoActivityIndicator()),
-                ),
-              
-            );
-          },
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: ListView.separated(
+            padding: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: rb.data.isEmpty ? 2 : rb.data.length,
+            separatorBuilder: (context, index) => SizedBox(
+              height: 15,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              if (rb.data.isEmpty) return LoadingCard(height: 200);
+              return Card1(
+                d: rb.data[index],
+                heroTag: 'recent$index',
+              );
+            },
+          ),
         )
       ],
     );
   }
 }
-

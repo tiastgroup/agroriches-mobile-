@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/blocs/featured_bloc.dart';
@@ -15,21 +17,45 @@ class Featured extends StatefulWidget {
 
 class _FeaturedState extends State<Featured> {
   int listIndex = 0;
+  Timer? _timer;
+  PageController _pageController = PageController(
+    initialPage: 0,
+  );
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer!.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     final fb = context.watch<FeaturedBloc>();
     double w = MediaQuery.of(context).size.width;
+    if (_timer == null) {
+      _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+        if (listIndex < fb.data.length - 1) {
+          listIndex++;
+        } else {
+          listIndex = 0;
+        }
+
+        _pageController.animateToPage(
+          listIndex,
+          duration: Duration(milliseconds: 350),
+          curve: Curves.easeIn,
+        );
+      });
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        
         Container(
           height: 250,
           width: w,
           child: PageView.builder(
-            controller: PageController(initialPage: 0),
+            controller: _pageController,
             scrollDirection: Axis.horizontal,
             itemCount: fb.data.isEmpty ? 1 : fb.data.length,
             onPageChanged: (index) {
@@ -38,10 +64,10 @@ class _FeaturedState extends State<Featured> {
               });
             },
             itemBuilder: (BuildContext context, int index) {
-              if (fb.data.isEmpty){
-                if(fb.hasData == false){
+              if (fb.data.isEmpty) {
+                if (fb.hasData == false) {
                   return _EmptyContent();
-                }else{
+                } else {
                   return LoadingFeaturedCard();
                 }
               }
@@ -72,7 +98,6 @@ class _FeaturedState extends State<Featured> {
   }
 }
 
-
 class _EmptyContent extends StatelessWidget {
   const _EmptyContent({Key? key}) : super(key: key);
 
@@ -83,15 +108,13 @@ class _EmptyContent extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().darkTheme == false ? CustomColor().loadingColorLight : CustomColor().loadingColorDark,
-        borderRadius: BorderRadius.circular(5)
+          color: context.watch<ThemeBloc>().darkTheme == false
+              ? CustomColor().loadingColorLight
+              : CustomColor().loadingColorDark,
+          borderRadius: BorderRadius.circular(5)),
+      child: Center(
+        child: Text("No Contents found!"),
       ),
-      child: Center(child: Text("No Contents found!"),),
     );
   }
 }
-
-
-
-
-

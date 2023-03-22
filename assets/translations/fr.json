@@ -3,6 +3,7 @@
     "home": "Accueil",
     
     "tv": "télé",
+    "podcast": "audio",
     
     "categories" : "Catégories",
     
@@ -236,7 +237,7 @@
     
     "rate this app" : "Évaluez cette application",
     
-    "licence" : "Licence",
+    "license" : "Licence",
     
     "privacy policy" : "Politique de confidentialité",
     
