@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Explore(),
             VideoArticles(),
-            //Categories(),
             Podcast(),
             Newsletter(),
             ProfilePage()

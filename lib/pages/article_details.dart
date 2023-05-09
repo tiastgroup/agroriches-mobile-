@@ -344,6 +344,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                               ),
                             ],
                           ),
+                          Text("Christian"),
                           Container(
                               padding: EdgeInsets.all(20),
                               child: RelatedArticles(

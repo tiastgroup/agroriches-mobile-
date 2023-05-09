@@ -33,6 +33,7 @@ class _Tab0State extends State<Tab0> {
             SearchBar(),
             Featured(),
             RecentArticles(),
+            Text("Christian"),
             PopularArticles(),
           ],
         ),
