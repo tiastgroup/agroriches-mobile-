@@ -58,6 +58,9 @@ dependencies:
   flutter_tts: ^3.6.3
   percent_indicator: ^4.2.3
   sliding_up_panel: ^2.0.0+1
+  just_audio: ^0.9.32
+  audio_video_progress_bar: ^1.0.1
+  rxdart: ^0.27.7
   # audioplayers: ^0.18.1
   # facebook_audience_network: ^1.0.1
   flutter_icons:
