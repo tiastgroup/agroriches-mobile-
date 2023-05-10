@@ -77,7 +77,7 @@ class PodcastWidget extends StatelessWidget {
           ),
           // Play button on the image
           Positioned(
-            right: 8,
+            right: -10,
             bottom: 8,
             child: cb.currentPodcast != null &&
                     cb.currentPodcast!.title == podcastDetails.title
@@ -86,6 +86,7 @@ class PodcastWidget extends StatelessWidget {
                         onPressed: () {
                           // Pause button action here
                         },
+                        iconSize: 40,
                         icon: Icon(Icons.pause),
                         color: Colors.white,
                       )
@@ -93,6 +94,7 @@ class PodcastWidget extends StatelessWidget {
                         onPressed: () {
                           // Play button action here
                         },
+                        iconSize: 40,
                         icon: Icon(Icons.play_arrow),
                         color: Colors.white,
                       )
@@ -100,6 +102,7 @@ class PodcastWidget extends StatelessWidget {
                     onPressed: () {
                       // Play button action here
                     },
+                    iconSize: 40,
                     icon: Icon(Icons.play_arrow),
                     color: Colors.white,
                   ),
