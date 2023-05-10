@@ -3,17 +3,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:miniplayer/miniplayer.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:news_app/blocs/podcast_bloc.dart';
-import 'package:news_app/models/podcast.dart';
 import 'package:news_app/utils/empty.dart';
 import 'package:news_app/utils/loading_cards.dart';
 import 'package:news_app/widgets/podcast_player.dart';
 import 'package:news_app/widgets/podcast_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-final miniPlayerControllerProvider = MiniplayerController();
 
 class Podcast extends StatefulWidget {
   const Podcast({Key? key}) : super(key: key);
@@ -28,8 +25,9 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   static const double _playerMinHeight = 60.0;
 
-  bool isPlaying = false;
-  bool showMiniPlayer = true;
+  bool showMiniPlayer = false;
+
+  final player = AudioPlayer();
 
   ScrollController? controller;
 
@@ -38,14 +36,37 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
     super.initState();
     Future.delayed(Duration(milliseconds: 0)).then((value) {
       controller = new ScrollController()..addListener(_scrollListener);
-      context.read<PodcastBloc>().getData(mounted);
+      // context.read<PodcastBloc>().getData(mounted);
+      initAudios();
     });
+  }
+
+  void initAudios() async {
+    await context.read<PodcastBloc>().getData(mounted);
+    final cb = context.read<PodcastBloc>();
+
+    List<AudioSource> podcastUrls = cb.data.map((podcast) {
+      return AudioSource.uri(
+        Uri.parse(podcast.podcastUrl),
+      );
+    }).toList();
+
+    await player.setAudioSource(
+        ConcatenatingAudioSource(
+            // Start loading next item just before reaching it
+            useLazyPreparation: true,
+
+            // Specify the playlist items
+            children: podcastUrls),
+        initialPosition: Duration.zero);
+    player.setLoopMode(LoopMode.one);
   }
 
   @override
   void dispose() {
     controller!.removeListener(_scrollListener);
     super.dispose();
+    player.dispose();
   }
 
   void _scrollListener() {
@@ -62,10 +83,6 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final cb = context.watch<PodcastBloc>();
-    // final miniPlayerController = miniPlayerControllerProvider;
-
-    // miniPlayerController.animateToHeight(state: PanelState.MAX);
-    PodcastModel selectedPodcast = cb.data.first;
 
     return Scaffold(
         appBar: AppBar(
@@ -102,24 +119,43 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                     ],
                   )
                 : Stack(children: [
-                    ListView.separated(
+                    GridView.builder(
                       controller: controller,
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10),
                       padding: EdgeInsets.only(
                           left: 10, right: 10, top: 15, bottom: 10),
                       itemCount: cb.data.length != 0 ? cb.data.length + 1 : 10,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            2, // Change this value to adjust the number of columns
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio:
+                            1.0, // Change this value to adjust the aspect ratio
+                      ),
                       itemBuilder: (_, int index) {
                         if (index < cb.data.length) {
                           return GestureDetector(
-                              child:
-                                  PodcastWidget(podcastDetails: cb.data[index]),
-                              onTap: () {
+                            child: PodcastWidget(
+                              podcastDetails: cb.data[index],
+                            ),
+                            onTap: () async {
+                              if (player.playing) {
+                                player.pause();
                                 setState(() {
-                                  showMiniPlayer = true;
-                                  // selectedPodcast = cb.data[index];
+                                  cb.isPlaying = false;
                                 });
+                                return;
+                              }
+                              player.seek(Duration.zero, index: index);
+                              player.play();
+
+                              setState(() {
+                                cb.isPlaying = true;
+                                cb.setCurrentPodcast(cb.data[index]);
+                                showMiniPlayer = true;
                               });
+                            },
+                          );
                         }
                         return Opacity(
                           opacity: cb.isLoading ? 1.0 : 0.0,
@@ -127,13 +163,15 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                               ? LoadingCard(height: null)
                               : Center(
                                   child: SizedBox(
-                                      width: 32.0,
-                                      height: 32.0,
-                                      child: new CupertinoActivityIndicator()),
+                                    width: 32.0,
+                                    height: 32.0,
+                                    child: new CupertinoActivityIndicator(),
+                                  ),
                                 ),
                         );
                       },
                     ),
+
                     !showMiniPlayer
                         ? const SizedBox.shrink()
                         : SlidingUpPanel(
@@ -146,9 +184,7 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                                 child: Column(children: [
                                   Row(children: [
                                     Image.network(
-                                      'https://picsum.photos/250?image=9',
-
-                                      // selectedPodcast.imageUrl,
+                                      cb.currentPodcast!.imageUrl,
                                       height: _playerMinHeight - 4.0,
                                       width: 120.0,
                                       fit: BoxFit.cover,
@@ -167,7 +203,7 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                                           children: [
                                             Flexible(
                                               child: Text(
-                                                selectedPodcast.title,
+                                                cb.currentPodcast!.title,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -181,7 +217,7 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                                             ),
                                             Flexible(
                                               child: Text(
-                                                selectedPodcast.author,
+                                                cb.currentPodcast!.author,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -195,23 +231,22 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                                         ),
                                       ),
                                     ),
-                                    isPlaying
+                                    cb.isPlaying
                                         ? IconButton(
-                                            icon: const Icon(Icons.play_arrow),
-                                            onPressed: () {
+                                            icon: const Icon(Icons.pause),
+                                            onPressed: () async {
+                                              player.pause();
                                               setState(() {
-                                                isPlaying = !isPlaying;
+                                                cb.isPlaying = !cb.isPlaying;
                                               });
                                             },
                                           )
                                         : IconButton(
-                                            icon: const Icon(Icons.pause),
+                                            icon: const Icon(Icons.play_arrow),
                                             onPressed: () {
+                                              player.play();
                                               setState(() {
-                                                print(isPlaying);
-                                                print("daquiver");
-                                                isPlaying = !isPlaying;
-                                                print(isPlaying);
+                                                cb.isPlaying = !cb.isPlaying;
                                               });
                                             },
                                           ),
@@ -219,14 +254,19 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                                       icon: const Icon(Icons.close),
                                       onPressed: () {
                                         setState(() {
+                                          player.stop();
                                           showMiniPlayer = false;
-                                          // selectedPodcast = null;
+                                          cb.isPlaying = false;
+                                          cb.setCurrentPodcast(null);
                                         });
                                       },
                                     ),
                                   ]),
                                 ])),
-                            panel: PodcastPlayer(),
+                            panel: PodcastPlayer(
+                              podcastDetails: cb.currentPodcast!,
+                              audioPlayer: player,
+                            ),
                           ),
 
                     //   !showMiniPlayer

@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +10,7 @@ import 'package:news_app/blocs/ads_bloc.dart';
 import 'package:news_app/blocs/bookmark_bloc.dart';
 import 'package:news_app/blocs/sign_in_bloc.dart';
 import 'package:news_app/blocs/theme_bloc.dart';
+import 'package:news_app/models/ad.dart';
 import 'package:news_app/models/article.dart';
 import 'package:news_app/models/custom_color.dart';
 import 'package:news_app/pages/comments.dart';
@@ -18,11 +23,10 @@ import 'package:news_app/widgets/love_count.dart';
 import 'package:news_app/widgets/love_icon.dart';
 import 'package:news_app/widgets/related_articles.dart';
 import 'package:news_app/widgets/views_count.dart';
-import 'package:share/share.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'dart:io';
-import 'package:easy_localization/easy_localization.dart';
+
 import '../utils/next_screen.dart';
 
 class VideoArticleDetails extends StatefulWidget {
@@ -85,17 +89,20 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
   }
 
   _initInterstitialAds() {
-    final adb = context.read<AdsBloc>();
+    final adb = context.read<AdBloc>();
     Future.delayed(Duration(milliseconds: 0)).then((value) {
       if (adb.interstitialAdEnabled == true) {
-        context.read<AdsBloc>().loadAds();
+        context.read<AdBloc>().loadAds();
       }
     });
   }
 
+  String imageUrl = 'https://source.unsplash.com/random';
+
   @override
   void initState() {
     super.initState();
+    initialize();
     initYoutube();
     _initInterstitialAds();
     Future.delayed(Duration(milliseconds: 100)).then((value) {
@@ -163,10 +170,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
         return Scaffold(
             body: Column(
           children: [
-            SafeArea(
-              top: true,
-              bottom: false,
-              child: player),
+            SafeArea(top: true, bottom: false, child: player),
             Expanded(
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),
@@ -327,6 +331,24 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                     SizedBox(
                       height: 20,
                     ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                         padding: EdgeInsets.all(20),
                         child: RelatedArticles(
@@ -342,5 +364,16 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
         ));
       },
     );
+  }
+
+  initialize() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('tiast')
+        .doc("liQW0ySs7aqF27PHigIW")
+        .get();
+    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    setState(() {
+      imageUrl = _imageUrl;
+    });
   }
 }

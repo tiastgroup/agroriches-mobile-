@@ -5,7 +5,6 @@ class PodcastModel {
   late String author;
   late String title;
   late String imageUrl;
-  late int duration;
   late String podcastUrl;
   late Timestamp createdAt;
   late Timestamp updatedAt;
@@ -16,7 +15,6 @@ class PodcastModel {
       required this.title,
       required this.imageUrl,
       required this.podcastUrl,
-      required this.duration,
       required this.createdAt,
       required this.updatedAt});
 
@@ -27,7 +25,6 @@ class PodcastModel {
       author: d["author"],
       title: d["title"],
       imageUrl: d["imageUrl"],
-      duration: d["duration"],
       podcastUrl: d["podcastUrl"],
       createdAt: d["createdAt"],
       updatedAt: d["updatedAt"],

@@ -26,13 +26,15 @@ class NewsletterBloc extends ChangeNotifier {
     if (_lastVisible == null)
       rawData = await firestore
           .collection('newsletter')
+          .orderBy('volume', descending: true)
           .orderBy('timestamp', descending: false)
           .limit(30)
           .get();
     else
       rawData = await firestore
           .collection('newsletter')
-          .orderBy('timestamp', descending: false)
+          .orderBy('name', descending: true)
+          .orderBy('volume', descending: false)
           .startAfter([_lastVisible!['timestamp']])
           .limit(30)
           .get();

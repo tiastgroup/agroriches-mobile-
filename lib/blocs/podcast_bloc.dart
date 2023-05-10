@@ -8,7 +8,9 @@ class PodcastBloc extends ChangeNotifier {
   DocumentSnapshot? get lastVisible => _lastVisible;
 
   bool _isLoading = true;
+  bool isPlaying = false;
   bool get isLoading => _isLoading;
+  PodcastModel? currentPodcast;
 
   List<PodcastModel> _data = [];
   List<PodcastModel> get data => _data;
@@ -62,6 +64,11 @@ class PodcastBloc extends ChangeNotifier {
 
   setLoading(bool isLoading) {
     _isLoading = isLoading;
+    notifyListeners();
+  }
+
+  setCurrentPodcast(PodcastModel? podcast) {
+    currentPodcast = podcast;
     notifyListeners();
   }
 
