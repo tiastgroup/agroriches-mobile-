@@ -70,9 +70,12 @@ class PodcastWidget extends StatelessWidget {
         children: [
           // Podcast image as background
           Positioned.fill(
-            child: Image.network(
-              podcastDetails.imageUrl,
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                podcastDetails.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           // Play button on the image
@@ -109,34 +112,40 @@ class PodcastWidget extends StatelessWidget {
           ),
         ],
       ),
-      footer: Container(
-        height: 60,
-        color: Colors.black.withOpacity(0.5),
-        padding: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Podcast title
-            Text(
-              podcastDetails.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+      footer: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20.0),
+          bottomRight: Radius.circular(20.0),
+        ),
+        child: Container(
+          height: 60,
+          color: Colors.black.withOpacity(0.5),
+          padding: EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Podcast title
+              Text(
+                podcastDetails.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            // Podcast author
-            Text(
-              podcastDetails.author.toString(),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w300,
+              // Podcast author
+              Text(
+                podcastDetails.author.toString(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

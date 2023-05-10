@@ -59,6 +59,7 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
             // Specify the playlist items
             children: podcastUrls),
         initialPosition: Duration.zero);
+    player.setLoopMode(LoopMode.one);
   }
 
   @override

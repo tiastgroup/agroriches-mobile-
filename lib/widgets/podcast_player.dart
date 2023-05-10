@@ -77,6 +77,7 @@ class _PodcastPlayer extends State<PodcastPlayer> {
                     stream: _positionDataStream,
                     builder: (context, snapshot) {
                       final positionData = snapshot.data;
+
                       return ProgressBar(
                         onSeek: (value) {
                           widget.audioPlayer.seek(value);
