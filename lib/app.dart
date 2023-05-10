@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
                   create: (context) => PodcastBloc()),
               ChangeNotifierProvider<NewsletterBloc>(
                   create: (context) => NewsletterBloc()),
-              ChangeNotifierProvider<AdsBloc>(create: (context) => AdsBloc()),
+              ChangeNotifierProvider<AdBloc>(create: (context) => AdBloc()),
               ChangeNotifierProvider<RelatedBloc>(
                   create: (context) => RelatedBloc()),
               ChangeNotifierProvider<TabIndexBloc>(

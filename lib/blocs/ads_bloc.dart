@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';                      //admob ads
+import 'package:google_mobile_ads/google_mobile_ads.dart'; //admob ads
 //import 'package:facebook_audience_network/facebook_audience_network.dart';    //fb ads
 import 'package:news_app/config/ad_config.dart';
 
-class AdsBloc extends ChangeNotifier {
-
+class AdBloc extends ChangeNotifier {
   bool? _bannerAdEnabled = false;
   bool? get bannerAdEnabled => _bannerAdEnabled;
 
@@ -26,7 +25,8 @@ class AdsBloc extends ChangeNotifier {
       bool? _interstitial = snap['interstitial_ad'];
       _bannerAdEnabled = _banner;
       _interstitialAdEnabled = _interstitial;
-      print('banner : $_bannerAdEnabled, interstitial: $_interstitialAdEnabled');
+      print(
+          'banner : $_bannerAdEnabled, interstitial: $_interstitialAdEnabled');
       notifyListeners();
     }).catchError((e) {
       print('error : $e');
@@ -34,29 +34,24 @@ class AdsBloc extends ChangeNotifier {
   }
 
   //enable only one
-  Future initiateAds ()async{
-    await MobileAds.instance.initialize();  //admob
+  Future initiateAds() async {
+    await MobileAds.instance.initialize(); //admob
     //await FacebookAudienceNetwork.init();  //fb
   }
 
-
   //enbale only one
-  void loadAds (){
-    createInterstitialAdAdmob();  //admob
+  void loadAds() {
+    createInterstitialAdAdmob(); //admob
     //createInterstitialAdFb(); //fb
   }
-
 
   //enbale only one
   @override
   void dispose() {
-    interstitialAdAdmob?.dispose();  //admob
+    interstitialAdAdmob?.dispose(); //admob
     //disposefbInterstitial();       //fb
     super.dispose();
   }
-
-
-
 
   // Admob Ads -- START --
 
@@ -83,26 +78,26 @@ class AdsBloc extends ChangeNotifier {
         ));
   }
 
-
   void showInterstitialAdAdmob() {
-    if(interstitialAdAdmob != null){
-
-      interstitialAdAdmob!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) => print('ad onAdShowedFullScreenContent.'),
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        print('$ad onAdDismissedFullScreenContent.');
-        ad.dispose();
-        interstitialAdAdmob = null;
-        _isAdLoaded = false;
-        notifyListeners();
-      },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
-        ad.dispose();
-        interstitialAdAdmob = null;
-        _isAdLoaded = false;
-        notifyListeners();
-      },
+    if (interstitialAdAdmob != null) {
+      interstitialAdAdmob!.fullScreenContentCallback =
+          FullScreenContentCallback(
+        onAdShowedFullScreenContent: (InterstitialAd ad) =>
+            print('ad onAdShowedFullScreenContent.'),
+        onAdDismissedFullScreenContent: (InterstitialAd ad) {
+          print('$ad onAdDismissedFullScreenContent.');
+          ad.dispose();
+          interstitialAdAdmob = null;
+          _isAdLoaded = false;
+          notifyListeners();
+        },
+        onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+          print('$ad onAdFailedToShowFullScreenContent: $error');
+          ad.dispose();
+          interstitialAdAdmob = null;
+          _isAdLoaded = false;
+          notifyListeners();
+        },
       );
       interstitialAdAdmob!.show();
       interstitialAdAdmob = null;
@@ -110,16 +105,7 @@ class AdsBloc extends ChangeNotifier {
     }
   }
 
-
   // Admob Ads -- END --
-
-
-
-
-
-
-  
-
 
   // Fb Ads -- START --
 
@@ -142,14 +128,11 @@ class AdsBloc extends ChangeNotifier {
   //   );
   // }
 
-
   // void showInterstitialAdFb() async{
   //   await FacebookInterstitialAd.showInterstitialAd();
   //   _isAdLoaded = false;
   //   notifyListeners();
   // }
-
-  
 
   // Future disposefbInterstitial()async {
   //   if (_isAdLoaded == true) {
@@ -158,7 +141,6 @@ class AdsBloc extends ChangeNotifier {
   //     notifyListeners();
   //   }
   // }
-
 
   // Fb Ads -- END --
 }

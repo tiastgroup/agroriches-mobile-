@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/blocs/ads_bloc.dart';
 import 'package:news_app/blocs/featured_bloc.dart';
 import 'package:news_app/blocs/popular_articles_bloc.dart';
 import 'package:news_app/blocs/recent_articles_bloc.dart';
+import 'package:news_app/models/ad.dart';
 import 'package:news_app/widgets/featured.dart';
 import 'package:news_app/widgets/popular_articles.dart';
 import 'package:news_app/widgets/recent_articles.dart';
@@ -16,8 +19,17 @@ class Tab0 extends StatefulWidget {
 }
 
 class _Tab0State extends State<Tab0> {
+  String imageUrl = 'https://source.unsplash.com/random';
+  @override
+  void initState() {
+    super.initState();
+    initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final adBloc = context.watch<AdBloc>();
+
     return RefreshIndicator(
       onRefresh: () async {
         context.read<FeaturedBloc>().onRefresh();
@@ -33,11 +45,39 @@ class _Tab0State extends State<Tab0> {
             SearchBar(),
             Featured(),
             RecentArticles(),
-            Text("Christian"),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             PopularArticles(),
           ],
         ),
       ),
     );
+  }
+
+  initialize() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('tiast')
+        .doc("liQW0ySs7aqF27PHigIW")
+        .get();
+    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    setState(() {
+      imageUrl = _imageUrl;
+    });
   }
 }

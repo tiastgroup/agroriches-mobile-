@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,11 +21,10 @@ import 'package:news_app/widgets/love_count.dart';
 import 'package:news_app/widgets/love_icon.dart';
 import 'package:news_app/widgets/related_articles.dart';
 import 'package:news_app/widgets/views_count.dart';
-import 'package:share/share.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'dart:io';
-import 'package:easy_localization/easy_localization.dart';
+
 import '../utils/next_screen.dart';
 
 class VideoArticleDetails extends StatefulWidget {
@@ -85,10 +87,10 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
   }
 
   _initInterstitialAds() {
-    final adb = context.read<AdsBloc>();
+    final adb = context.read<AdBloc>();
     Future.delayed(Duration(milliseconds: 0)).then((value) {
       if (adb.interstitialAdEnabled == true) {
-        context.read<AdsBloc>().loadAds();
+        context.read<AdBloc>().loadAds();
       }
     });
   }
@@ -163,10 +165,7 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
         return Scaffold(
             body: Column(
           children: [
-            SafeArea(
-              top: true,
-              bottom: false,
-              child: player),
+            SafeArea(top: true, bottom: false, child: player),
             Expanded(
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),

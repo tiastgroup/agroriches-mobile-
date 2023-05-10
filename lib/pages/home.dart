@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   _initServies() async {
     Future.delayed(Duration(milliseconds: 0)).then((value) async {
-      final adb = context.read<AdsBloc>();
+      final adb = context.read<AdBloc>();
       await NotificationService()
           .initFirebasePushNotification(context)
           .then((value) =>
