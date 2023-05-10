@@ -118,36 +118,43 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                     ],
                   )
                 : Stack(children: [
-                    ListView.separated(
+                    GridView.builder(
                       controller: controller,
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10),
                       padding: EdgeInsets.only(
                           left: 10, right: 10, top: 15, bottom: 10),
                       itemCount: cb.data.length != 0 ? cb.data.length + 1 : 10,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            2, // Change this value to adjust the number of columns
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio:
+                            1.0, // Change this value to adjust the aspect ratio
+                      ),
                       itemBuilder: (_, int index) {
                         if (index < cb.data.length) {
                           return GestureDetector(
-                              child: PodcastWidget(
-                                podcastDetails: cb.data[index],
-                              ),
-                              onTap: () async {
-                                if (player.playing) {
-                                  player.pause();
-                                  setState(() {
-                                    cb.isPlaying = false;
-                                  });
-                                  return;
-                                }
-                                player.seek(Duration.zero, index: index);
-                                player.play();
-
+                            child: PodcastWidget(
+                              podcastDetails: cb.data[index],
+                            ),
+                            onTap: () async {
+                              if (player.playing) {
+                                player.pause();
                                 setState(() {
-                                  cb.isPlaying = true;
-                                  cb.setCurrentPodcast(cb.data[index]);
-                                  showMiniPlayer = true;
+                                  cb.isPlaying = false;
                                 });
+                                return;
+                              }
+                              player.seek(Duration.zero, index: index);
+                              player.play();
+
+                              setState(() {
+                                cb.isPlaying = true;
+                                cb.setCurrentPodcast(cb.data[index]);
+                                showMiniPlayer = true;
                               });
+                            },
+                          );
                         }
                         return Opacity(
                           opacity: cb.isLoading ? 1.0 : 0.0,
@@ -155,13 +162,15 @@ class _PodcastState extends State<Podcast> with AutomaticKeepAliveClientMixin {
                               ? LoadingCard(height: null)
                               : Center(
                                   child: SizedBox(
-                                      width: 32.0,
-                                      height: 32.0,
-                                      child: new CupertinoActivityIndicator()),
+                                    width: 32.0,
+                                    height: 32.0,
+                                    child: new CupertinoActivityIndicator(),
+                                  ),
                                 ),
                         );
                       },
                     ),
+
                     !showMiniPlayer
                         ? const SizedBox.shrink()
                         : SlidingUpPanel(
