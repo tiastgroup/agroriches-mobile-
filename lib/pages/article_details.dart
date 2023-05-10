@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:news_app/blocs/ads_bloc.dart';
 import 'package:news_app/blocs/bookmark_bloc.dart';
 import 'package:news_app/blocs/sign_in_bloc.dart';
 import 'package:news_app/blocs/theme_bloc.dart';
+import 'package:news_app/models/ad.dart';
 import 'package:news_app/models/article.dart';
 import 'package:news_app/models/custom_color.dart';
 import 'package:news_app/pages/comments.dart';
@@ -79,9 +81,13 @@ class _ArticleDetailsState extends State<ArticleDetails> {
     }
   }
 
+  String imageUrl = 'https://source.unsplash.com/random';
+
   @override
   void initState() {
     super.initState();
+    initialize();
+
     tts.setLanguage('en');
     tts.setSpeechRate(0.4);
     Future.delayed(Duration(milliseconds: 100)).then((value) {
@@ -344,7 +350,24 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                               ),
                             ],
                           ),
-                          Text("Christian"),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           Container(
                               padding: EdgeInsets.all(20),
                               child: RelatedArticles(
@@ -409,5 +432,16 @@ class _ArticleDetailsState extends State<ArticleDetails> {
         )
       ],
     );
+  }
+
+  initialize() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('tiast')
+        .doc("liQW0ySs7aqF27PHigIW")
+        .get();
+    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    setState(() {
+      imageUrl = _imageUrl;
+    });
   }
 }
