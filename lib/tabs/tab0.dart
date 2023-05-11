@@ -5,6 +5,7 @@ import 'package:news_app/blocs/featured_bloc.dart';
 import 'package:news_app/blocs/popular_articles_bloc.dart';
 import 'package:news_app/blocs/recent_articles_bloc.dart';
 import 'package:news_app/models/ad.dart';
+import 'package:news_app/utils/urls.dart';
 import 'package:news_app/widgets/featured.dart';
 import 'package:news_app/widgets/popular_articles.dart';
 import 'package:news_app/widgets/recent_articles.dart';
@@ -50,14 +51,17 @@ class _Tab0State extends State<Tab0> {
                 padding: const EdgeInsets.all(8.0),
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () => openUrl("https://www.tiastgroup.com"),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

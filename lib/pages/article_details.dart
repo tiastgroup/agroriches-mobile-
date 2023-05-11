@@ -18,6 +18,7 @@ import 'package:news_app/services/app_service.dart';
 import 'package:news_app/utils/cached_image.dart';
 import 'package:news_app/utils/remove_html_tags.dart';
 import 'package:news_app/utils/sign_in_dialog.dart';
+import 'package:news_app/utils/urls.dart';
 import 'package:news_app/widgets/banner_ad_admob.dart'; //admob
 //import 'package:news_app/widgets/banner_ad_fb.dart';      //fb ad
 import 'package:news_app/widgets/bookmark_icon.dart';
@@ -193,7 +194,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                     Row(
                                       children: <Widget>[
                                         Icon(Icons.date_range,
-                                            size: 20, color: Colors.grey),
+                                            size: 25, color: Colors.grey),
                                         SizedBox(
                                           width: 5,
                                         ),
@@ -202,13 +203,13 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                   .secondaryHeaderColor,
-                                              fontSize: 12),
+                                              fontSize: 15),
                                         ),
                                         SizedBox(
                                           width: 20,
                                         ),
                                         Icon(CupertinoIcons.timer,
-                                            size: 18, color: Colors.grey),
+                                            size: 25, color: Colors.grey),
                                         SizedBox(
                                           width: 5,
                                         ),
@@ -217,55 +218,52 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                   .secondaryHeaderColor,
-                                              fontSize: 12),
+                                              fontSize: 15),
                                         ),
                                         SizedBox(
                                           width: 20,
                                         ),
-                                        isSpeaking
-                                            ? Icon(CupertinoIcons.pause,
-                                                size: 18, color: Colors.grey)
-                                            : Icon(CupertinoIcons.play,
-                                                size: 18, color: Colors.grey),
-                                        SizedBox(
-                                          width: 5,
+                                        GestureDetector(
+                                          onTap: () async {
+                                            if (isSpeaking) {
+                                              setState(() {
+                                                isSpeaking = false;
+                                              });
+                                              try {
+                                                tts.pause();
+                                              } on Exception catch (e) {
+                                                tts.stop();
+                                              }
+                                            } else {
+                                              tts.speak(bodyAndTitle);
+                                              setState(() {
+                                                isSpeaking = true;
+                                              });
+                                            }
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                isSpeaking
+                                                    ? CupertinoIcons.pause
+                                                    : CupertinoIcons.play,
+                                                size: 25,
+                                                color: Colors.grey,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                isSpeaking ? "Pause" : "Play",
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .secondaryHeaderColor,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        isSpeaking
-                                            ? GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    isSpeaking = !isSpeaking;
-                                                  });
-                                                  try {
-                                                    tts.pause();
-                                                  } on Exception catch (e) {
-                                                    tts.stop();
-                                                  }
-                                                },
-                                                child: Text(
-                                                  "Pause",
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                      fontSize: 12),
-                                                ),
-                                              )
-                                            : GestureDetector(
-                                                onTap: () async {
-                                                  tts.speak(bodyAndTitle);
-
-                                                  setState(() {
-                                                    isSpeaking = true;
-                                                  });
-                                                },
-                                                child: Text(
-                                                  "Play",
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                      fontSize: 12),
-                                                ),
-                                              )
                                       ],
                                     ),
                                     SizedBox(
@@ -355,14 +353,18 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                               padding: const EdgeInsets.all(8.0),
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
-                                child: Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      openUrl("https://www.tiastgroup.com"),
+                                  child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),

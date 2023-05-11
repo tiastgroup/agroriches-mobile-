@@ -17,6 +17,7 @@ import 'package:news_app/pages/comments.dart';
 import 'package:news_app/services/app_service.dart';
 import 'package:news_app/utils/cached_image.dart';
 import 'package:news_app/utils/sign_in_dialog.dart';
+import 'package:news_app/utils/urls.dart';
 import 'package:news_app/widgets/bookmark_icon.dart';
 import 'package:news_app/widgets/html_body.dart';
 import 'package:news_app/widgets/love_count.dart';
@@ -336,14 +337,17 @@ class _VideoArticleDetailsState extends State<VideoArticleDetails> {
                         padding: const EdgeInsets.all(8.0),
                         child: AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.network(
-                              imageUrl,
-                              fit: BoxFit.cover,
+                          child: GestureDetector(
+                            onTap: () => openUrl("https://www.tiastgroup.com"),
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
