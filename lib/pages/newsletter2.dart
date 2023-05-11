@@ -71,7 +71,20 @@ class _Newsletter2State extends State<Newsletter2>
       appBar: AppBar(
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text('Volume ${widget.volumeNumber}'),
+        title: Row(
+          children: [
+            IconButton(
+              icon: Icon(
+                Feather.arrow_left,
+                size: 22,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            Center(child: Text('Volume ${widget.volumeNumber}')),
+          ],
+        ),
         elevation: 0,
         actions: <Widget>[
           IconButton(
