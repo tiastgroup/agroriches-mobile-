@@ -1,4 +1,5 @@
 // import 'dart:html';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:news_app/blocs/newsletter_bloc.dart';
-import 'package:news_app/pages/pdf_view.dart';
+import 'package:news_app/models/newsletter.dart';
+import 'package:news_app/pages/newsletter2.dart';
 import 'package:news_app/utils/cached_image_with_dark.dart';
 import 'package:news_app/utils/empty.dart';
 import 'package:news_app/utils/loading_cards.dart';
+import 'package:news_app/utils/next_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../models/newsletter.dart';
+import 'pdf_view.dart';
 
 class Newsletter extends StatefulWidget {
   Newsletter({Key? key}) : super(key: key);
@@ -33,7 +36,7 @@ class _NewsletterState extends State<Newsletter>
     super.initState();
     Future.delayed(Duration(milliseconds: 0)).then((value) {
       controller = new ScrollController()..addListener(_scrollListener);
-      context.read<NewsletterBloc>().getData(mounted);
+      context.read<NewsletterBloc>().getVolumeData(mounted);
     });
   }
 
@@ -46,10 +49,10 @@ class _NewsletterState extends State<Newsletter>
   void _scrollListener() {
     final db = context.read<NewsletterBloc>();
 
-    if (!db.isLoading) {
+    if (!db.isVolumeLoading) {
       if (controller!.position.pixels == controller!.position.maxScrollExtent) {
-        context.read<NewsletterBloc>().setLoading(true);
-        context.read<NewsletterBloc>().getData(mounted);
+        context.read<NewsletterBloc>().setVolumeLoading(true);
+        context.read<NewsletterBloc>().getVolumeData(mounted);
       }
     }
   }
@@ -72,13 +75,13 @@ class _NewsletterState extends State<Newsletter>
               size: 22,
             ),
             onPressed: () {
-              context.read<NewsletterBloc>().onRefresh(mounted);
+              context.read<NewsletterBloc>().onVolumeRefresh(mounted);
             },
           )
         ],
       ),
       body: RefreshIndicator(
-        child: cb.hasData == false
+        child: cb.hasVolumeData == false
             ? ListView(
                 children: [
                   SizedBox(
@@ -86,27 +89,51 @@ class _NewsletterState extends State<Newsletter>
                   ),
                   EmptyPage(
                       icon: Feather.clipboard,
-                      message: 'no newsletter found',
+                      message: 'no Volume found',
                       message1: ''),
                 ],
               )
-            : GridView.builder(
+            : ListView.separated(
+                separatorBuilder: (context, index) => Divider(
+                  height: 30,
+                  thickness: 1,
+                ),
                 controller: controller,
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 20 / 30,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemCount: cb.data.length != 0 ? cb.data.length + 1 : 10,
+                itemCount:
+                    cb.volumeData.length != 0 ? cb.volumeData.length + 1 : 10,
                 itemBuilder: (_, int index) {
-                  if (index < cb.data.length) {
-                    return _ItemList(d: cb.data[index]);
+                  if (index < cb.volumeData.length) {
+                    return GestureDetector(
+                      onTap: () {
+                        final String volumeNum =
+                            cb.volumeData[index].name.split(' ')[1];
+                        nextScreen(
+                            context, Newsletter2(volumeNumber: volumeNum));
+                      },
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: 60,
+                          child: CachedNetworkImage(
+                            imageUrl: cb.volumeData[index].thumbnailUrl,
+                            height: MediaQuery.of(context).size.height,
+                            placeholder: (context, url) =>
+                                Container(color: Colors.grey[300]),
+                            errorWidget: (context, url, error) => Container(
+                              color: Colors.grey[300],
+                              child: Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                        title: Text(cb.volumeData[index].name.toString()),
+                        trailing: Icon(Icons.arrow_forward_ios, size: 20),
+                      ),
+                    );
                   }
                   return Opacity(
-                    opacity: cb.isLoading ? 1.0 : 0.0,
-                    child: cb.lastVisible == null
+                    opacity: cb.isVolumeLoading ? 1.0 : 0.0,
+                    child: cb.lastVolumeVisible == null
                         ? LoadingCard(height: null)
                         : Center(
                             child: SizedBox(
@@ -118,7 +145,7 @@ class _NewsletterState extends State<Newsletter>
                 },
               ),
         onRefresh: () async {
-          context.read<NewsletterBloc>().onRefresh(mounted);
+          context.read<NewsletterBloc>().onVolumeRefresh(mounted);
         },
       ),
     );
@@ -128,9 +155,9 @@ class _NewsletterState extends State<Newsletter>
   bool get wantKeepAlive => true;
 }
 
-class _ItemList extends StatelessWidget {
+class ItemList extends StatelessWidget {
   final NewsletterModel d;
-  const _ItemList({Key? key, required this.d}) : super(key: key);
+  const ItemList({Key? key, required this.d}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -5,16 +5,19 @@ class NewsletterModel {
   String? thumbnailUrl;
   String? pdfUrl;
   String? timestamp;
+  int? volume;
 
-  NewsletterModel({this.name,this.thumbnailUrl, this.pdfUrl, this.timestamp});
+  NewsletterModel(
+      {this.name, this.thumbnailUrl, this.pdfUrl, this.timestamp, this.volume});
 
   factory NewsletterModel.fromFirestore(DocumentSnapshot snapshot) {
     Map d = snapshot.data() as Map<dynamic, dynamic>;
     return NewsletterModel(
-      name:d['name'],
+      name: d['name'],
       thumbnailUrl: d['thumbnail'],
       pdfUrl: d['pdf'],
       timestamp: d['timestamp'],
+      volume: d['volume'],
     );
   }
 }
