@@ -20,7 +20,7 @@ class Tab0 extends StatefulWidget {
 }
 
 class _Tab0State extends State<Tab0> {
-  String imageUrl = 'https://source.unsplash.com/random';
+  AdModel adBanner = AdModel(name: "", imageUrl: "", siteUrl: "");
   @override
   void initState() {
     super.initState();
@@ -52,14 +52,14 @@ class _Tab0State extends State<Tab0> {
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
                   child: GestureDetector(
-                    onTap: () => openUrl("https://www.tiastgroup.com"),
+                    onTap: () => openUrl(adBanner.siteUrl),
                     child: Card(
                       clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Image.network(
-                        imageUrl,
+                        adBanner.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -79,9 +79,9 @@ class _Tab0State extends State<Tab0> {
         .collection('tiast')
         .doc("liQW0ySs7aqF27PHigIW")
         .get();
-    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    final AdModel _adBanner = AdModel.fromFirestore(doc);
     setState(() {
-      imageUrl = _imageUrl;
+      adBanner = _adBanner;
     });
   }
 }

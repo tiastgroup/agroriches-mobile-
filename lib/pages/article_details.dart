@@ -82,7 +82,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
     }
   }
 
-  String imageUrl = 'https://source.unsplash.com/random';
+  AdModel adBanner = AdModel(name: "", imageUrl: "", siteUrl: "");
 
   @override
   void initState() {
@@ -354,15 +354,14 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      openUrl("https://www.tiastgroup.com"),
+                                  onTap: () => openUrl(adBanner.siteUrl),
                                   child: Card(
                                     clipBehavior: Clip.antiAlias,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Image.network(
-                                      imageUrl,
+                                      adBanner.imageUrl,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -441,9 +440,9 @@ class _ArticleDetailsState extends State<ArticleDetails> {
         .collection('tiast')
         .doc("liQW0ySs7aqF27PHigIW")
         .get();
-    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    final AdModel _adBanner = AdModel.fromFirestore(doc);
     setState(() {
-      imageUrl = _imageUrl;
+      adBanner = _adBanner;
     });
   }
 }
