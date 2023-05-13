@@ -8,7 +8,7 @@ void showCustomAlertDialog(
   if (_isAlertDialogShowing) return;
 
   _isAlertDialogShowing = true;
-  showGeneralDialog(
+  await showGeneralDialog(
     context: context,
     barrierDismissible: true,
     barrierLabel: 'Dismiss',
