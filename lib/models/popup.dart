@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AdModel {
+class PopupModel {
   String name;
   String imageUrl;
   String siteUrl;
 
-  AdModel({required this.name, required this.imageUrl, required this.siteUrl});
+  PopupModel(
+      {required this.name, required this.imageUrl, required this.siteUrl});
 
-  factory AdModel.fromFirestore(DocumentSnapshot snapshot) {
+  factory PopupModel.fromFirestore(DocumentSnapshot snapshot) {
     Map d = snapshot.data() as Map<dynamic, dynamic>;
-    return AdModel(
+    return PopupModel(
       name: d['name'],
       imageUrl: d['imageUrl'],
       siteUrl: d['siteUrl'],

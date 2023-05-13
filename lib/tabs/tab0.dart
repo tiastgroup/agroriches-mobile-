@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/blocs/ads_bloc.dart';
@@ -5,8 +7,10 @@ import 'package:news_app/blocs/featured_bloc.dart';
 import 'package:news_app/blocs/popular_articles_bloc.dart';
 import 'package:news_app/blocs/recent_articles_bloc.dart';
 import 'package:news_app/models/ad.dart';
+import 'package:news_app/models/popup.dart';
 import 'package:news_app/utils/urls.dart';
 import 'package:news_app/widgets/featured.dart';
+import 'package:news_app/widgets/pop_up_banner.dart';
 import 'package:news_app/widgets/popular_articles.dart';
 import 'package:news_app/widgets/recent_articles.dart';
 import 'package:news_app/widgets/search_bar.dart';
@@ -20,11 +24,29 @@ class Tab0 extends StatefulWidget {
 }
 
 class _Tab0State extends State<Tab0> {
-  String imageUrl = 'https://source.unsplash.com/random';
+  Timer? _timer;
+  int _alertDialogCount = 0;
+  AdModel adBanner = AdModel(
+      name: "Test Ad",
+      imageUrl: "https://picsum.photos/200",
+      siteUrl: "https://example.com");
+  PopupModel popupBanner = PopupModel(
+    name: "Test Popup",
+    imageUrl: "https://picsum.photos/200",
+    siteUrl: "https://example.com",
+  );
   @override
   void initState() {
     super.initState();
+
     initialize();
+    scheduleAlertDialog(Duration(seconds: 10));
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -52,14 +74,14 @@ class _Tab0State extends State<Tab0> {
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
                   child: GestureDetector(
-                    onTap: () => openUrl("https://www.tiastgroup.com"),
+                    onTap: () => openUrl(adBanner.siteUrl),
                     child: Card(
                       clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Image.network(
-                        imageUrl,
+                        adBanner.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -79,9 +101,34 @@ class _Tab0State extends State<Tab0> {
         .collection('tiast')
         .doc("liQW0ySs7aqF27PHigIW")
         .get();
-    final String _imageUrl = AdModel.fromFirestore(doc).imageUrl;
+    final DocumentSnapshot popupDoc = await FirebaseFirestore.instance
+        .collection('popup')
+        .doc("Hm93OEsE9OBcNBAAnRup")
+        .get();
+    final AdModel _adBanner = AdModel.fromFirestore(doc);
+    final PopupModel _popupBanner = PopupModel.fromFirestore(popupDoc);
+
     setState(() {
-      imageUrl = _imageUrl;
+      adBanner = _adBanner;
+      popupBanner = _popupBanner;
     });
+  }
+
+  void scheduleAlertDialog(Duration duration) {
+    if (popupBanner.imageUrl == "" || popupBanner.siteUrl == "") return;
+
+    if (_alertDialogCount < 2) {
+      _timer = Timer(duration, () {
+        showCustomAlertDialog(
+            context, popupBanner.siteUrl, popupBanner.imageUrl);
+        _alertDialogCount++;
+
+        if (_alertDialogCount == 1) {
+          scheduleAlertDialog(Duration(minutes: 5));
+        }
+      });
+    } else {
+      _timer?.cancel();
+    }
   }
 }
