@@ -115,6 +115,8 @@ class _Tab0State extends State<Tab0> {
   }
 
   void scheduleAlertDialog(Duration duration) {
+    if (popupBanner.imageUrl == "" || popupBanner.siteUrl == "") return;
+
     if (_alertDialogCount < 2) {
       _timer = Timer(duration, () {
         showCustomAlertDialog(
@@ -122,7 +124,7 @@ class _Tab0State extends State<Tab0> {
         _alertDialogCount++;
 
         if (_alertDialogCount == 1) {
-          scheduleAlertDialog(Duration(minutes: 3));
+          scheduleAlertDialog(Duration(minutes: 5));
         }
       });
     } else {
