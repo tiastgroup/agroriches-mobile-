@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/utils/urls.dart';
 
+bool _isAlertDialogShowing = false;
+
 void showCustomAlertDialog(
     BuildContext context, String siteUrl, String imageUrl) async {
+  if (_isAlertDialogShowing) return;
+
+  _isAlertDialogShowing = true;
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
@@ -53,6 +58,9 @@ void showCustomAlertDialog(
     },
   );
 
+  _isAlertDialogShowing = false;
+}
+
   // showDialog(
   //   context: context,
   //   barrierDismissible: true, // Allows dismissing the dialog by tapping outside
@@ -80,4 +88,3 @@ void showCustomAlertDialog(
   //     );
   //   },
   // );
-}
