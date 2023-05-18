@@ -126,6 +126,9 @@ class _Newsletter2State extends State<Newsletter2>
                     ? cb.newsletterData.length + 1
                     : 10,
                 itemBuilder: (_, int index) {
+                  cb.newsletterData.sort(
+                    (a, b) => b.timestamp!.compareTo(a.timestamp!),
+                  );
                   if (index < cb.newsletterData.length) {
                     return _ItemList(d: cb.newsletterData[index]);
                   }
